@@ -14,6 +14,7 @@ app.use(require('./middleware/headers'))
 //app.use('/user', controllers.userController);
 //app.use('/post', controllers.postController);
 //app.use('/order', controllers.orderController);
+//app.use('/recipe', controller.recipeController);
 
 dbConnection.authenticate()
 .then(() => dbConnection.sync())

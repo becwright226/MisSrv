@@ -18,6 +18,7 @@ app.use('/recipe', controllers.recipeController);
 app.use('/schedule', controllers.schedController);
 app.use('/comment', controllers.commentController);
 app.use('/log', controllers.logController);
+app.use('/diary', controllers.diaryController)
 
 dbConnection.authenticate()
 .then(async () => await dbConnection.sync(/*{force: true}*/)) // force: true will drop all tables in pgAdmin and resync them. This is necessary after you make a change to a model, and need to sync any new table headers to the database.

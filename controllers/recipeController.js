@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { models } = require('../models');
+const { models } = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
 

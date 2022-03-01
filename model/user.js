@@ -25,14 +25,9 @@ const UserModel = db.define("user", {
         type: DataTypes.STRING(20),
         allowNull: false
     },
-    confirmPass: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    },
      role: {
       type: DataTypes.STRING(),
       allowNull: false
-      //association?
     },
 });
 

@@ -2,6 +2,12 @@ const { DataTypes } = require('sequelize');
 const db = require('../db')
 
 const LogModel = db.define('log', {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+  },
   date: {
     type: DataTypes.DATE,
     allowNull: false
@@ -9,10 +15,6 @@ const LogModel = db.define('log', {
   task: {
     type: DataTypes.STRING(100),
     allowNull: true
-  },
-  empId: {
-    type: DataTypes.INTEGER,
-    //association?
   },
   time: {
     type: DataTypes.INTEGER,

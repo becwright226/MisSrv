@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { UserModel } = require('../model');
+const { models } = require('../model');
 
 const validateSession = async (req, res, next) => {
     
@@ -11,7 +11,7 @@ const validateSession = async (req, res, next) => {
             const payload = authorization ? jwt.verify(authorization, process.env.JWT_SECRET_KEY) : undefined
     
             if (payload) {
-                let foundUser = await UserModel.findOne({
+                let foundUser = await models.UserModel.findOne({
                     where: {id: payload.id}
                 })
     
@@ -36,7 +36,7 @@ const validateSession = async (req, res, next) => {
 
     } catch (err) {
         res.status(500).json({
-            message: err
+            message: err.message
         })
     }
 };

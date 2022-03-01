@@ -5,7 +5,7 @@ let validateJWT = require('../middleware/validate-session')
 
 //! Creating an order log
 router.post("/order", validateJWT, async (req, res) => {
-
+if (req.user.role==='admin') {
     const { date, itemCount, desc, isEvent, eventName, cost } = req.body
     try {
         const createOrder = await models.OrderModel.create({
@@ -28,10 +28,14 @@ router.post("/order", validateJWT, async (req, res) => {
             message: `Failed to post ${err.message}`
         })
     }
+} else {
+    console.log('You do not have authority here')
+}
   });
 
   //! Get all order logs
   router.get('/order', async (req, res) => {
+      if (req.user.id==='admin') {
     try {
         const allOrders = await models.OrderModel.findAll()
   
@@ -44,10 +48,14 @@ router.post("/order", validateJWT, async (req, res) => {
             message: "The server broke but the app is still running"
         });
     }
+} else {
+    console.log('You do not have authority here')
+}
   });
 
   //! Get all order logs by isEvent
   router.get('/event', async (req, res) => {
+      if (req.user.role==='admin') {
     try {
         const results = await models.OrderModel.findAll({
             where: { isEvent: true }
@@ -56,10 +64,14 @@ router.post("/order", validateJWT, async (req, res) => {
     }  catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 });
 
 //! Get order by eventName 
 router.get('/:eventName', async (req, res) => {
+    if (req.user.role==='admin') {
     const  { eventName } = req.params;
     try {
         const results = await models.OrderModel.findAll({
@@ -69,10 +81,14 @@ router.get('/:eventName', async (req, res) => {
     }  catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 });
 
 //! Update order by ID:
 router.put('/:id', validateJWT, async (req, res) => {
+    if (req.user.role==='admin') {
     const {  
         date, 
         itemCount,
@@ -104,10 +120,14 @@ router.put('/:id', validateJWT, async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 });
 
 //! Delete order log by ID:
 router.delete("/:id", validateJWT, async (req,res) => {
+    if (req.user.role==='admin') {
     const orderId = req.params.id;
 
     try {
@@ -122,6 +142,9 @@ router.delete("/:id", validateJWT, async (req,res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 })
 
 

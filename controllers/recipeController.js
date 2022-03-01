@@ -5,7 +5,7 @@ let validateJWT = require('../middleware/validate-session')
 
 //! Creating an order log
 router.post("/", validateJWT, async (req, res) => {
-
+if (req.user.role==='admin') {
     const { style, title, course, desc, time, method} = req.body
     try {
         const createRecipe = await models.RecipeModel.create({
@@ -28,6 +28,9 @@ router.post("/", validateJWT, async (req, res) => {
             message: `Failed to create recipe ${err.message}`
         })
     }
+} else {
+    console.log('You do not have authority here')
+}
   });
 
   //! Get all recipes
@@ -74,6 +77,7 @@ router.get('/:style', async (req, res) => {
 
 //! Update recipe by ID:
 router.put('/:id', validateJWT, async (req, res) => {
+    if (req.user.role==='admin') {
     const {  
         style, 
         title,
@@ -105,10 +109,14 @@ router.put('/:id', validateJWT, async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 });
 
 //! Delete recipe by ID:
 router.delete("/:id", validateJWT, async (req,res) => {
+    if (req.user.role==='admin') {
     const recipeId = req.params.id;
 
     try {
@@ -123,6 +131,9 @@ router.delete("/:id", validateJWT, async (req,res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 })
 
 

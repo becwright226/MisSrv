@@ -3,6 +3,7 @@ const { models } = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
 router.post('/',validateJWT, async (req, res) => {
+    if (req.user.role==='admin') {
     const {date, task, desc, empAssign, time} = req.body;
 
     try {
@@ -27,6 +28,9 @@ router.post('/',validateJWT, async (req, res) => {
           error: `Failed to create schedule: ${err}`
         });
     };
+} else {
+    console.log('You do not have authority here')
+}
 });
 
 //get all schedules w/ logs
@@ -80,6 +84,7 @@ router.get('/schedules', async (req, res) => {
 
 //update sched
 router.put('/:id', validateJWT, async (req, res) => {
+    if (req.user.role==='admin') {
     const {date, task, desc, empAssign, time} = req.body;
     const scheduleId = req.params.id;
 
@@ -103,9 +108,13 @@ router.put('/:id', validateJWT, async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 });
 //delete sched
 router.delete("/:id", validateJWT, async (req,res) => {
+    if(req.user.role==='admin') {
     const scheduleId = req.params.id;
 
     try {
@@ -120,6 +129,9 @@ router.delete("/:id", validateJWT, async (req,res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+} else {
+    console.log('You do not have authority here')
+}
 })
 
 

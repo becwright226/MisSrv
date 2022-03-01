@@ -9,15 +9,15 @@ const DiaryModel = db.define('diary', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   title: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.TEXT,
     allowNull: true
   },
   content: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   },
 });

@@ -9,19 +9,19 @@ const PostModel = db.define('post', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   title: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.TEXT,
     allowNull: true
   },
   content: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   role: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT,
   }
 });
 

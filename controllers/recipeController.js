@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { models } = require('../model');
+const {models} = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
 
 //! Creating an order log
-router.post("/recipe", validateJWT, async (req, res) => {
+router.post("/", validateJWT, async (req, res) => {
 
     const { style, title, course, desc, time, method} = req.body
     try {
@@ -101,7 +101,7 @@ router.put('/:id', validateJWT, async (req, res) => {
 
     try {
         const update = await models.RecipeModel.update(updatedRecipe, query);
-        res.status(200).json(updatedOrder);
+        res.status(200).json(updatedRecipe);
     } catch (err) {
         res.status(500).json({ error: err });
     }

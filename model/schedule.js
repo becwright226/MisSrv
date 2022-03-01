@@ -9,15 +9,15 @@ const SchedModel = db.define('schedule', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   task: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: true
   },
   desc: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   empAssign: {

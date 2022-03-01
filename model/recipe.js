@@ -3,19 +3,19 @@ const db = require('../db')
 
 const RecipeModel = db.define('recipe', {
   style: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   title: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   course: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   desc: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   time: {
@@ -23,7 +23,7 @@ const RecipeModel = db.define('recipe', {
     allowNull: false
   },
   method: {
-    type:DataTypes.STRING(100),
+    type:DataTypes.TEXT,
     allowNull: true
   }
 });

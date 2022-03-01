@@ -1,7 +1,8 @@
 const router = require("express").Router()
-const { models } = require('../model');
+const {models} = require('../model');
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { UniqueConstraintError } = require('sequelize/lib/errors');
 
 //! REGISTER
 router.post("/register", async (req, res) => {
@@ -47,7 +48,7 @@ router.post("/register", async (req, res) => {
 //! LOGIN
 
 router.post('/login', async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password, role} = req.body;
 
   try {
       let loginUser = await models.UserModel.findOne({

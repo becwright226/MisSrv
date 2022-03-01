@@ -9,11 +9,11 @@ const LogModel = db.define('log', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   task: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: true
   },
   time: {

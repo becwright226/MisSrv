@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { models } = require('../model');
+let validateJWT = require('../middleware/validate-session')
 
 router.post('/log', async (req,res) => {
     const {date,task,time, scheduleId} = req.body;

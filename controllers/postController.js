@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { models } = require('../model');
+const {models} = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
-router.post('/post', validateJWT, async (req, res) => {
+router.post('/', validateJWT, async (req, res) => {
     const {date, title, content, role} = req.body;
 
     try {
@@ -81,12 +81,11 @@ router.get('/:role', async (req, res) => {
 router.put('/:id', validateJWT, async (req, res) => {
     const {date, title, content, role} = req.body;
     const postId = req.params.id;
-    const userId = req.user.id;
+
 
     const query = {
         where: {
-            id: postId,
-            userId: userId
+            id: postId
         }
     };
 

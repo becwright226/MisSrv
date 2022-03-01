@@ -9,11 +9,11 @@ const CommentModel = db.define('comment', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   content: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   }
 });

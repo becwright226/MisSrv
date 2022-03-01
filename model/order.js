@@ -3,7 +3,7 @@ const db = require('../db')
 
 const OrderModel = db.define('order', {
   date: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   itemCount: {
@@ -11,7 +11,7 @@ const OrderModel = db.define('order', {
     allowNull: false
   },
   desc: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   isEvent: {
@@ -19,7 +19,7 @@ const OrderModel = db.define('order', {
     allowNull: false
   },
   eventName: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT,
     allowNull: true
   }, 
   cost: {

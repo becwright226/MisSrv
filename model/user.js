@@ -9,24 +9,24 @@ const UserModel = db.define("user", {
         allowNull: false,
     },
     firstName: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     lastName: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     email: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true
     },
     password: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.TEXT,
         allowNull: false
     },
      role: {
-      type: DataTypes.STRING(),
+      type: DataTypes.TEXT,
       allowNull: false
     },
 });

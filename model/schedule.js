@@ -2,8 +2,14 @@ const { DataTypes } = require('sequelize');
 const db = require('../db')
 
 const SchedModel = db.define('schedule', {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+  },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING(),
     allowNull: false
   },
   task: {
@@ -14,9 +20,9 @@ const SchedModel = db.define('schedule', {
     type: DataTypes.STRING(1000),
     allowNull: false
   },
-  empId: {
+  empAssign: {
     type: DataTypes.INTEGER,
-    //association?
+  
   },
   time: {
     type: DataTypes.INTEGER,

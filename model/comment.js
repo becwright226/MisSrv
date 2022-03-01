@@ -2,21 +2,19 @@ const { DataTypes } = require('sequelize');
 const db = require('../db')
 
 const CommentModel = db.define('comment', {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+  },
   date: {
     type: DataTypes.DATE,
     allowNull: false
   },
-  empId: {
-    type: DataTypes.INTEGER,
-    //association?
-  },
   content: {
     type: DataTypes.STRING(1000),
     allowNull: false
-  },
-  postId: {
-    type: DataTypes.INTEGER,
-    //association?
   }
 });
 

@@ -1,2 +1,1 @@
-//register
-//login
+const { models } = require('../models');

@@ -2,8 +2,14 @@ const { DataTypes } = require('sequelize');
 const db = require('../db')
 
 const PostModel = db.define('post', {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+  },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING(),
     allowNull: false
   },
   title: {
@@ -16,7 +22,6 @@ const PostModel = db.define('post', {
   },
   role: {
     type: DataTypes.STRING(),
-    //association?
   }
 });
 

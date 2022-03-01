@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {RecipeModel} = require('../model/index');
+const { models } = require('../models');
 let validateJWT = require('../middleware/validate-session')
 
 
@@ -8,7 +8,7 @@ router.post("/recipe", validateJWT, async (req, res) => {
 
     const { style, title, course, desc, time, method} = req.body
     try {
-        const createRecipe = await RecipeModel.create({
+        const createRecipe = await models.RecipeModel.create({
             style, 
             title,
             course,
@@ -33,7 +33,7 @@ router.post("/recipe", validateJWT, async (req, res) => {
   //! Get all recipes
   router.get('/allrecipes', async (req, res) => {
     try {
-        const allRecipes = await RecipeModel.findAll()
+        const allRecipes = await models.RecipeModel.findAll()
   
         res.status(200).json(allRecipes)
   
@@ -50,7 +50,7 @@ router.post("/recipe", validateJWT, async (req, res) => {
   router.get('/:title', async (req, res) => {
     const  { title } = req.params;
     try {
-        const results = await RecipeModel.findAll({
+        const results = await models.RecipeModel.findAll({
             where: {title: title}
         });
         res.status(200).json(results);
@@ -63,7 +63,7 @@ router.post("/recipe", validateJWT, async (req, res) => {
 router.get('/:style', async (req, res) => {
     const  { style } = req.params;
     try {
-        const results = await RecipeModel.findAll({
+        const results = await models.RecipeModel.findAll({
             where: {style: style}
         });
         res.status(200).json(results);
@@ -100,7 +100,7 @@ router.put('/:id', validateJWT, async (req, res) => {
     };
 
     try {
-        const update = await RecipeModel.update(updatedRecipe, query);
+        const update = await models.RecipeModel.update(updatedRecipe, query);
         res.status(200).json(updatedOrder);
     } catch (err) {
         res.status(500).json({ error: err });
@@ -118,7 +118,7 @@ router.delete("/:id", validateJWT, async (req,res) => {
             }
         };
 
-        await RecipeModel.destroy(query);
+        await models.RecipeModel.destroy(query);
         res.status(200).json({ message: "Recipe Removed"});
     } catch (err) {
         res.status(500).json({ error: err });

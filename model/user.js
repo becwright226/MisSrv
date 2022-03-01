@@ -2,10 +2,11 @@ const { DataTypes } = require('sequelize');
 const db = require('../db');
 
 const UserModel = db.define("user", {
-    companyId: {
-        type: DataTypes.INTEGER(),
-        //allowNull: false
-        //association?
+    id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
     },
     firstName: {
         type: DataTypes.STRING(50),

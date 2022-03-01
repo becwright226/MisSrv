@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {OrderModel} = require('../model/index');
+const { models } = require('../models');
 let validateJWT = require('../middleware/validate-session')
 
 
@@ -8,7 +8,7 @@ router.post("/order", validateJWT, async (req, res) => {
 
     const { date, itemCount, desc, isEvent, eventName, cost } = req.body
     try {
-        const createOrder = await OrderModel.create({
+        const createOrder = await models.OrderModel.create({
             date, 
             itemCount,
             desc,
@@ -33,7 +33,7 @@ router.post("/order", validateJWT, async (req, res) => {
   //! Get all order logs
   router.get('/order', async (req, res) => {
     try {
-        const allOrders = await OrderModel.findAll()
+        const allOrders = await models.OrderModel.findAll()
   
         res.status(200).json(allOrders)
   
@@ -49,7 +49,7 @@ router.post("/order", validateJWT, async (req, res) => {
   //! Get all order logs by isEvent
   router.get('/event', async (req, res) => {
     try {
-        const results = await OrderModel.findAll({
+        const results = await models.OrderModel.findAll({
             where: { isEvent: true }
         });
         res.status(200).json(results);
@@ -62,7 +62,7 @@ router.post("/order", validateJWT, async (req, res) => {
 router.get('/:eventName', async (req, res) => {
     const  { eventName } = req.params;
     try {
-        const results = await OrderModel.findAll({
+        const results = await models.OrderModel.findAll({
             where: { eventName: eventName, isEvent: true }
         });
         res.status(200).json(results);
@@ -99,7 +99,7 @@ router.put('/:id', validateJWT, async (req, res) => {
     };
 
     try {
-        const update = await OrderModel.update(updatedOrder, query);
+        const update = await models.OrderModel.update(updatedOrder, query);
         res.status(200).json(updatedOrder);
     } catch (err) {
         res.status(500).json({ error: err });
@@ -117,7 +117,7 @@ router.delete("/:id", validateJWT, async (req,res) => {
             }
         };
 
-        await OrderModel.destroy(query);
+        await models.OrderModel.destroy(query);
         res.status(200).json({ message: "Order Log Removed"});
     } catch (err) {
         res.status(500).json({ error: err });

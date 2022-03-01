@@ -45,7 +45,6 @@ router.get('/logs', async (req, res) => {
   });
 
   //all personal logs
-  //! GET ALL YOUR OWN POSTS - This is actually just getting all posts?????????????????????
 router.get("/mylogs", validateJWT, async (req,res) => {
     let { id } = req.user;
     try {

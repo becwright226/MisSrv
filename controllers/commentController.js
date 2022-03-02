@@ -2,11 +2,13 @@ const router = require('express').Router();
 const { models } = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
-router.post('/', validateJWT, async (req,res) => {
-    const {content, postId} = req.body;
+router.post('/:postId', validateJWT, async (req,res) => {
+    const {date, content} = req.body;
+    const {postId} = req.params;
 
     try {
         await models.CommentModel.create({
+            date,
             content,
             postId,
             userId: req.user.id

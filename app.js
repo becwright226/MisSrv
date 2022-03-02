@@ -21,7 +21,7 @@ app.use('/log', controllers.logController);
 app.use('/diary', controllers.diaryController)
 
 dbConnection.authenticate()
-.then(async () => await dbConnection.sync(/*{force: true}*/)) // force: true will drop all tables in pgAdmin and resync them. This is necessary after you make a change to a model, and need to sync any new table headers to the database.
+.then(async () => await dbConnection.sync()) // force: true will drop all tables in pgAdmin and resync them. This is necessary after you make a change to a model, and need to sync any new table headers to the database.
 .then(() => {
     app.listen(process.env.PORT, () => {
         console.log(`[Server]: App is listening on ${process.env.PORT}`);

@@ -59,16 +59,16 @@ router.get('/schedules', async (req, res) => {
   });
 //get sched by id
   router.get('/:id', async (req, res) => {
-    const  { scheduleId } = req.params.id;
+    
     try {
        await models.SchedModel.findAll({
-            where:[{ id: scheduleId,
+            where:{ id: req.params.id},
             include: [{
-                model: models.LogModel
+                model: models.LogModel//"Invalid value: {models:log}"
                 }
             ]
-           }
-        ]
+           
+        
     })
     .then(
         results => {
@@ -78,7 +78,7 @@ router.get('/schedules', async (req, res) => {
         }
     )
     }  catch (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -87,10 +87,11 @@ router.put('/:id', validateJWT, async (req, res) => {
     if (req.user.role==='admin') {
     const {date, task, desc, empAssign, time} = req.body;
     const scheduleId = req.params.id;
-
+    
+//will work with uuid but not idPK
     const query = {
         where: {
-            id: scheduleId,
+            id: scheduleId
         }
     };
 
@@ -115,12 +116,12 @@ router.put('/:id', validateJWT, async (req, res) => {
 //delete sched
 router.delete("/:id", validateJWT, async (req,res) => {
     if(req.user.role==='admin') {
-    const scheduleId = req.params.id;
+   
 
     try {
         const query = {
             where: {
-                id: scheduleId,
+                id:  req.params.id
             }
         };
 

@@ -28,7 +28,7 @@ router.post('/', validateJWT, async (req, res) => {
     };
 });
 //get all posts for you
-router.get('/allposts', async (req, res) => {
+router.get('/allposts', validateJWT, async (req, res) => {
     try {
         await models.PostModel.findAll({
             include: [{
@@ -53,18 +53,17 @@ router.get('/allposts', async (req, res) => {
   });
 //
 //! GET POSTS BY Role
-router.get('/:role', async (req, res) => {
+router.get('/:role', validateJWT, async (req, res) => {
     const  { role } = req.params;
     try {
        await models.PostModel.findAll({
-            where:[{ role: role,
+            where:{ role: role},
             include: [{
-                model: models.CommentModel
+                model: models.CommentModel// "error": "Invalid value { model: comment }"
                 }
             ]
            }
-        ]
-    })
+    )
     .then(
         results => {
             res.status(200).json({
@@ -73,7 +72,7 @@ router.get('/:role', async (req, res) => {
         }
     )
     }  catch (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ error: err.message });
     }
 });
 

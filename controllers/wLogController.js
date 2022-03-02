@@ -2,8 +2,9 @@ const router = require('express').Router();
 const { models } = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
-router.post('/log', async (req,res) => {
-    const {date,task,time, scheduleId} = req.body;
+router.post('/:scheduleId', validateJWT, async (req,res) => {
+    const {date,task,time } = req.body;
+    const {scheduleId}= req.params
 
     try {
         await models.LogModel.create({
@@ -29,7 +30,7 @@ router.post('/log', async (req,res) => {
 });
 
 //All logs
-router.get('/logs', async (req, res) => {
+router.get('/logs',validateJWT, async (req, res) => {
     try {
         const allLogs = await models.LogModel.findAll()
   

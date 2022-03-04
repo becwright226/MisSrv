@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const db = require('../db')
 
 const RecipeModel = db.define('recipe', {
-  style: {
+  cuisine: {
     type: DataTypes.TEXT,
     allowNull: false
   },

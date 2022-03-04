@@ -21,13 +21,9 @@ const SchedModel = db.define('schedule', {
     allowNull: false
   },
   empAssign: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TEXT,
     allowNull: true
   
-  },
-  time: {
-    type: DataTypes.INTEGER,
-    allowNull: false
   }
 });
 

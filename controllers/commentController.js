@@ -28,6 +28,23 @@ router.post('/:postId', validateJWT, async (req,res) => {
     };
 });
 
+
+    router.get('/comments',validateJWT, async (req, res) => {
+        try {
+            const allComments = await models.CommentModel.findAll()
+      
+            res.status(200).json(allComments)
+      
+        } catch (err) {
+      
+            res.status(500).json({
+                error: err,
+                message: "The server broke but the app is still running"
+            });
+        }
+      });
+
+
 router.put('/:id', validateJWT, async (req, res) => {
     const {content, postId} = req.body;
 

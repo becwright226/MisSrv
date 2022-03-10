@@ -60,9 +60,9 @@ router.get('/schedules', validateJWT, async (req, res) => {
 } else if (req.user.role==='BOH') {
     try {
         await models.SchedModel.findAll({
-        //    // include: [{
-        //         model: models.LogModel
-        //     }]
+         include: [{
+          model: models.LogModel
+         }]
         })
         .then(
             allSchedules => {

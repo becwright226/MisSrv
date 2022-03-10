@@ -5,11 +5,11 @@ let validateJWT = require('../middleware/validate-session')
 
 //! Creating an order log
 router.post("/", validateJWT, async (req, res) => {
-if (req.user.role==='admin') {
-    const { style, title, course, desc, time, method} = req.body
+if (req.user.role==='Admin') {
+    const { cuisine, title, course, desc, time, method} = req.body
     try {
         const createRecipe = await models.RecipeModel.create({
-            style, 
+            cuisine, 
             title,
             course,
             desc,
@@ -34,7 +34,9 @@ if (req.user.role==='admin') {
   });
 
   //! Get all recipes
-  router.get('/allrecipes', async (req, res) => {
+  router.get('/allrecipes', validateJWT, async (req, res) => {
+    if (req.user.role==='Admin') {
+    
     try {
         const allRecipes = await models.RecipeModel.findAll()
   
@@ -47,6 +49,22 @@ if (req.user.role==='admin') {
             message: "The server broke but the app is still running"
         });
     }
+} else if (req.user.role==='BOH') {
+    try {
+        const allRecipes = await models.RecipeModel.findAll()
+  
+        res.status(200).json(allRecipes)
+  
+    } catch (err) {
+  
+        res.status(500).json({
+            error: err,
+            message: "The server broke but the app is still running"
+        });
+    } 
+} else {
+    console.log('You do not have authority here')
+}
   });
 
   //! Get recipe by title
@@ -77,7 +95,7 @@ router.get('/:style', async (req, res) => {
 
 //! Update recipe by ID:
 router.put('/:id', validateJWT, async (req, res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const {  
         style, 
         title,
@@ -116,7 +134,7 @@ router.put('/:id', validateJWT, async (req, res) => {
 
 //! Delete recipe by ID:
 router.delete("/:id", validateJWT, async (req,res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const recipeId = req.params.id;
 
     try {

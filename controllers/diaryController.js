@@ -28,6 +28,7 @@ router.post('/', validateJWT, async (req, res) => {
 });
 
 router.get("/mydiaries", validateJWT, async (req,res) => {
+   //if (req.user.id===userId)
     try {
         const userDiaries = await models.DiaryModel.findAll({
             where: {

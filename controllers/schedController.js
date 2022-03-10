@@ -3,7 +3,7 @@ const { models } = require('../model');
 let validateJWT = require('../middleware/validate-session')
 
 router.post('/',validateJWT, async (req, res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const {date, task, desc, empAssign, time} = req.body;
 
     try {
@@ -34,7 +34,8 @@ router.post('/',validateJWT, async (req, res) => {
 });
 
 //get all schedules w/ logs
-router.get('/schedules', async (req, res) => {
+router.get('/schedules', validateJWT, async (req, res) => {
+    if (req.user.role==='Admin') {
     try {
         await models.SchedModel.findAll({
             include: [{
@@ -56,6 +57,31 @@ router.get('/schedules', async (req, res) => {
             message: "The server broke but the app is still running"
         });
     }
+} else if (req.user.role==='BOH') {
+    try {
+        await models.SchedModel.findAll({
+        //    // include: [{
+        //         model: models.LogModel
+        //     }]
+        })
+        .then(
+            allSchedules => {
+                res.status(200).json({
+                    allSchedules
+                });
+            }
+        )
+  
+    } catch (err) {
+  
+        res.status(500).json({
+            error: err,
+            message: "The server broke but the app is still running"
+        });
+    }
+} else {
+    console.log('You do not have authority here')
+}
   });
 //get sched by id
   router.get('/:id', async (req, res) => {
@@ -84,11 +110,11 @@ router.get('/schedules', async (req, res) => {
 
 //update sched
 router.put('/:id', validateJWT, async (req, res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const {date, task, desc, empAssign, time} = req.body;
     const scheduleId = req.params.id;
     
-//will work with uuid but not idPK
+
     const query = {
         where: {
             id: scheduleId
@@ -115,7 +141,7 @@ router.put('/:id', validateJWT, async (req, res) => {
 });
 //delete sched
 router.delete("/:id", validateJWT, async (req,res) => {
-    if(req.user.role==='admin') {
+    if(req.user.role==='Admin') {
    
 
     try {

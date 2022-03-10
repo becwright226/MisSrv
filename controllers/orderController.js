@@ -5,7 +5,7 @@ let validateJWT = require('../middleware/validate-session')
 
 //! Creating an order log
 router.post("/", validateJWT, async (req, res) => {
-if (req.user.role==='admin') {
+if (req.user.role==='Admin') {
     const { date, itemCount, desc, isEvent, eventName, cost } = req.body
     try {
         const createOrder = await models.OrderModel.create({
@@ -35,7 +35,7 @@ if (req.user.role==='admin') {
 
   //! Get all order logs
   router.get('/orders', validateJWT, async (req, res) => {
-      if (req.user.role==='admin') {
+      if (req.user.role==='Admin') {
     try {
         const allOrders = await models.OrderModel.findAll()
   
@@ -55,7 +55,7 @@ if (req.user.role==='admin') {
 
   //! Get all order logs by isEvent
   router.get('/event',validateJWT, async (req, res) => {
-      if (req.user.role==='admin') {
+      if (req.user.role==='Admin') {
     try {
         const results = await models.OrderModel.findAll({
             where: { isEvent: true }
@@ -71,7 +71,7 @@ if (req.user.role==='admin') {
 
 //! Get order by eventName 
 router.get('/:eventName', validateJWT, async (req, res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const  { eventName } = req.params;
     try {
         const results = await models.OrderModel.findAll({
@@ -88,7 +88,7 @@ router.get('/:eventName', validateJWT, async (req, res) => {
 
 //! Update order by ID:
 router.put('/:id', validateJWT, async (req, res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const {  
         date, 
         itemCount,
@@ -127,7 +127,7 @@ router.put('/:id', validateJWT, async (req, res) => {
 
 //! Delete order log by ID:
 router.delete("/:id", validateJWT, async (req,res) => {
-    if (req.user.role==='admin') {
+    if (req.user.role==='Admin') {
     const orderId = req.params.id;
 
     try {

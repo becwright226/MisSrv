@@ -30,9 +30,14 @@ router.post('/:scheduleId', validateJWT, async (req,res) => {
 });
 
 //All logs
-router.get('/logs',validateJWT, async (req, res) => {
+router.get('/:scheduleId',validateJWT, async (req, res) => {
+    const {scheduleId} = req.params
     try {
-        const allLogs = await models.LogModel.findAll()
+        const allLogs = await models.LogModel.findAll({
+            where: {
+                scheduleId: scheduleId
+            }
+        })
   
         res.status(200).json(allLogs)
   

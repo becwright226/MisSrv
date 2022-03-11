@@ -29,9 +29,15 @@ router.post('/:postId', validateJWT, async (req,res) => {
 });
 
 
-    router.get('/comments',validateJWT, async (req, res) => {
+    router.get('/:postId',validateJWT, async (req, res) => {
+        const {postId} = req.params
+        
         try {
-            const allComments = await models.CommentModel.findAll()
+            const allComments = await models.CommentModel.findAll({
+                where: {
+                    postId: postId
+                }
+            })
       
             res.status(200).json(allComments)
       

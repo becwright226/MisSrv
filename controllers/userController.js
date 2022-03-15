@@ -69,21 +69,20 @@ router.post('/login', async (req, res) => {
                   });
               } 
       } else {
-          res.status(401).json({
+          res.status(401).send({
               message: 'Incorrect email or password'
           })
-          res.status(444).json({
+          res.status(444).send({
               message: 'Incorrect email or password'
           })
-          res.status(400).json({
-              message: 'Bad request'
-          })
+          
+         
       } 
     
      } catch (error) {
          console.log(error)
-         res.status(500).json({
-             message: 'Failed to log user in'
+         res.status(401).send({
+             message: 'Incorrect email or password'
          })
        }
   });

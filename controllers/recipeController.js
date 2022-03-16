@@ -27,8 +27,7 @@ if (req.user.role==='Admin') {
         res.status(500).json({
             message: `Failed to create recipe ${err.message}`
         })
-        res.status(503).send('You do not have the authority to update recipes')
-        res.status(500).send('You do not have the authority to update recipes')
+      
     }
 } else {
     alert('You do not have the authority to record recipes')
@@ -51,8 +50,7 @@ if (req.user.role==='Admin') {
             error: err,
             message: "The server broke but the app is still running"
         });
-        res.status(500).send('You do not have the authority to view recipes')
-        res.status(503).send('You do not have the authority to view recipes')
+      
     }
 } else if (req.user.role==='BOH') {
     try {
@@ -66,8 +64,7 @@ if (req.user.role==='Admin') {
             error: err,
             message: "The server broke but the app is still running"
         });
-        res.status(500).send('You do not have the authority to view recipes')
-        res.status(503).send('You do not have the authority to view recipes')
+        
     } 
 } else {
     alert('You do not have the authority to view recipes')
@@ -133,8 +130,7 @@ router.put('/:id', validateJWT, async (req, res) => {
         const update = await models.RecipeModel.update(updatedRecipe, query);
         res.status(200).json(updatedRecipe);
     } catch (err) {
-        res.status(500).json({ error: err });
-        res.status(503).send('You do not have the authority to update recipes')
+        
     }
 } else {
     alert('You do not have the authority to update recipes')
@@ -158,7 +154,7 @@ router.delete("/:id", validateJWT, async (req,res) => {
         res.status(200).json({ message: "Recipe Removed"});
     } catch (err) {
         res.status(500).json({ error: err });
-        res.status(503).send('You do not have the authority to delete recipes')
+       
     }
 } else {
     alert('You do not have the authority to delete recipes')

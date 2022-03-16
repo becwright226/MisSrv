@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
           user => {
             const token = jwt.sign(
             { id: user.id },
-            process.env.JWT_SECRET_KEY,
+            `${process.env.JWT_SECRET_KEY}`,
             {expiresIn: 60 * 60 * 24 });
             res.status(201).json({
              message: "User created",
@@ -60,7 +60,9 @@ router.post('/login', async (req, res) => {
   
               if (passwordComparison) {
       
-              let token = jwt.sign({id: loginUser.id}, process.env.JWT_SECRET_KEY, {expiresIn: 60 * 60 * 24});
+              let token = jwt.sign({id: loginUser.id}, 
+                `${process.env.JWT_SECRET_KEY}`,
+                {expiresIn: 60 * 60 * 24});
       
               res.status(200).json({
                   user: loginUser,
@@ -73,7 +75,7 @@ router.post('/login', async (req, res) => {
               message: 'Incorrect email or password'
           })
           res.status(444).send({
-              message: 'Incorrect email or password'
+              message: 'Bad request'
           })
           
          

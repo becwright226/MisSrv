@@ -29,6 +29,7 @@ if (req.user.role==='Admin') {
         })
     }
 } else {
+    alert('You do not have the authority to record recipes')
     console.log('You do not have authority here')
 }
   });
@@ -63,6 +64,7 @@ if (req.user.role==='Admin') {
         });
     } 
 } else {
+    alert('You do not have the authority to view recipes')
     console.log('You do not have authority here')
 }
   });
@@ -128,6 +130,7 @@ router.put('/:id', validateJWT, async (req, res) => {
         res.status(500).json({ error: err });
     }
 } else {
+    alert('You do not have the authority to update recipes')
     console.log('You do not have authority here')
 }
 });
@@ -150,6 +153,7 @@ router.delete("/:id", validateJWT, async (req,res) => {
         res.status(500).json({ error: err });
     }
 } else {
+    alert('You do not have the authority to delete recipes')
     console.log('You do not have authority here')
 }
 })

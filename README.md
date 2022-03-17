@@ -1,5 +1,11 @@
 # MisSrv
+## Available Scripts
+In the project directory, you can run:
 
+## npm start/npx nodemon
+Runs the server in the development mode.
+Open postman(or other preferred) enter http://localhost:2206 and coresponding endpoints to test.
+You will also see any lint errors in the console.
 
 ## Mis En Plas
 Mis En Plas is an app targeted toward chefs, kitchen managers, restaurateurs, and other hospitality professionals. With Mis En Plas, users can… 
